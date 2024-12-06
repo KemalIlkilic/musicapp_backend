@@ -8,11 +8,9 @@ from src.db.main import get_session
 from .utils import verify_password
 
 
-
 user_service = UserService()
 auth_router = APIRouter()
 MyAsyncSession = Annotated[AsyncSession, Depends(get_session)]
-
 
 @auth_router.get('/')
 async def test():
@@ -45,6 +43,7 @@ async def login_users(login_data: UserLoginModel, session : MyAsyncSession):
                 content={
                     "message":"Login succesfull",
                     "user": {
+                        "name" : user.name,
                         "email":user.email,
                         "uid":str(user.uid)
                     }

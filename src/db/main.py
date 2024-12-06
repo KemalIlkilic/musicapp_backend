@@ -8,6 +8,10 @@ from sqlmodel import create_engine, SQLModel
 
 async_engine = AsyncEngine(
     create_engine(
+        #setting to 3600 means connections will be recycled after one hour.
+        pool_pre_ping=True,  # Ensure connections are valid before using #bu cozuyormus doc'a gore
+        pool_recycle=3600,
+        pool_timeout=30,
         url=Config.DATABASE_URL,
         #enable log output for this element.
         echo=True
